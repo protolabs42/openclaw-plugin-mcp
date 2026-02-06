@@ -1,0 +1,143 @@
+{
+  "id": "openclaw-plugin-mcp",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "servers": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "transport": {
+              "type": "string",
+              "enum": ["stdio", "http", "sse", "auto"]
+            },
+            "command": { "type": "string" },
+            "args": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "env": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "url": { "type": "string" },
+            "headers": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "trust": {
+              "type": "string",
+              "enum": ["trusted", "untrusted", "sanitize"]
+            },
+            "maxResultChars": { "type": "number" },
+            "timeout": { "type": "number" },
+            "toolFilter": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "allow": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "deny": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "defaults": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "trust": {
+            "type": "string",
+            "enum": ["trusted", "untrusted", "sanitize"]
+          },
+          "timeout": { "type": "number" },
+          "retries": { "type": "number" },
+          "maxResultChars": { "type": "number" }
+        }
+      }
+    }
+  },
+  "uiHints": {
+    "servers": {
+      "label": "MCP Servers",
+      "help": "Configure MCP server connections. Each key is a server name."
+    },
+    "servers.*.enabled": { "label": "Enabled" },
+    "servers.*.transport": {
+      "label": "Transport",
+      "help": "auto: detect from config (command=stdio, url=http). Override if needed."
+    },
+    "servers.*.command": {
+      "label": "Command",
+      "placeholder": "npx",
+      "help": "Command to spawn the MCP server (stdio transport)"
+    },
+    "servers.*.args": {
+      "label": "Arguments",
+      "placeholder": "-y, @context7/mcp",
+      "help": "Command arguments for stdio transport"
+    },
+    "servers.*.url": {
+      "label": "Server URL",
+      "placeholder": "https://mcp.example.com",
+      "help": "URL for HTTP/SSE transport"
+    },
+    "servers.*.env": {
+      "label": "Environment Variables",
+      "sensitive": true,
+      "help": "Environment variables passed to the MCP server process"
+    },
+    "servers.*.headers": {
+      "label": "HTTP Headers",
+      "sensitive": true,
+      "help": "Custom headers for HTTP/SSE transport"
+    },
+    "servers.*.trust": {
+      "label": "Trust Level",
+      "help": "trusted: pass results directly. untrusted: add warning prefix. sanitize: strip potential injections."
+    },
+    "servers.*.maxResultChars": {
+      "label": "Max Result Size",
+      "placeholder": "50000",
+      "help": "Truncate tool results exceeding this character limit"
+    },
+    "servers.*.timeout": {
+      "label": "Timeout (ms)",
+      "placeholder": "30000"
+    },
+    "servers.*.toolFilter.allow": {
+      "label": "Allowed Tools",
+      "help": "Only expose these tools from this server (empty = all)"
+    },
+    "servers.*.toolFilter.deny": {
+      "label": "Denied Tools",
+      "help": "Hide these tools from the agent"
+    },
+    "defaults.trust": {
+      "label": "Default Trust Level",
+      "help": "Default trust for servers without explicit trust setting"
+    },
+    "defaults.timeout": {
+      "label": "Default Timeout (ms)",
+      "placeholder": "30000"
+    },
+    "defaults.retries": {
+      "label": "Default Retries",
+      "placeholder": "2"
+    },
+    "defaults.maxResultChars": {
+      "label": "Default Max Result Size",
+      "placeholder": "50000"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "openclaw-plugin-mcp",
+  "version": "0.1.0",
+  "description": "Native MCP client support for OpenClaw - connect to any MCP server and use its tools natively",
+  "type": "module",
+  "main": "index.ts",
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint ."
+  },
+  "keywords": [
+    "openclaw",
+    "mcp",
+    "model-context-protocol",
+    "ai-tools",
+    "plugin"
+  ],
+  "license": "MIT",
+  "files": [
+    "index.ts",
+    "src/",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "zod": "^3.23.0"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.2.0"
+  },
+  "devDependencies": {
+    "@sinclair/typebox": "0.34.48",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
+  }
+}
